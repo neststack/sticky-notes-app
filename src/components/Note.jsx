@@ -7,6 +7,7 @@ const Note = ({ id, color, text, time }) => {
   const dispatch = useDispatch();
   const [textContent, setTextContent] = useState(text);
   const [counter, setCounter] = useState(0);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     if (counter === 0) {
@@ -63,6 +64,11 @@ const Note = ({ id, color, text, time }) => {
   }
 
   const event = new Date(time);
+  const date = event.toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  })
 
   return (
     <div className='m-4'>
@@ -70,11 +76,7 @@ const Note = ({ id, color, text, time }) => {
         className={`${headerColorClass} select-none flex justify-between rounded-t-xl`}
       >
         <div className='text-black/30 dark:text-black/80 p-2'>
-          {event.toLocaleDateString('en-us', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          })}
+          {focused ? `(${textContent.length}/200)` : date}
         </div>
         <button className='p-2 text-black' onClick={() => noteDeleteHandle(id)}>
           <MdOutlineClose />
@@ -85,10 +87,12 @@ const Note = ({ id, color, text, time }) => {
         name='note'
         rows='5'
         cols='30'
-        maxLength='100'
+        maxLength='200'
         value={textContent}
         spellCheck='false'
         onChange={noteChangeHandle}
+        onFocus={()=>setFocused(true)}
+        onBlur={()=>setFocused(false)}
       />
     </div>
   );
