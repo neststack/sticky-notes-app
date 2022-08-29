@@ -40,7 +40,7 @@ const notesSlice = createSlice({
   initialState,
   reducers: {
     addNote: (state, action) => {
-      state.notes = [...state.notes, action.payload];
+      state.notes = [action.payload, ...state.notes];
     },
     removeNote: (state, action) => {
       const itemId = action.payload;
