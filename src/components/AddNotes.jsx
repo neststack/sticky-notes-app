@@ -35,6 +35,7 @@ const AddNotes = () => {
                 time: Date.now(),
               })
             );
+            window.scrollTo(0, 0);
             setIsOpen(false);
           }}
           className='w-[46px] h-[46px] my-[8px] rounded-full bg-blue-400 shadow-md shadow-gray-500'
